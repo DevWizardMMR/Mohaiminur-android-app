@@ -1,7 +1,7 @@
 import { View, Text, Image } from "react-native";
-import { colors } from "../../theme";
 import { LinearGradient } from "expo-linear-gradient";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { colors } from "../../theme/colors";
 
 const Welcome = ({ navigation }) => {
   return (
