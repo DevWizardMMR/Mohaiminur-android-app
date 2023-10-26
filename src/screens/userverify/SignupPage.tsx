@@ -23,6 +23,7 @@ const SignupPage = ({ navigation }) => {
         );
       }
       navigation.navigate("loginpage");
+      action.resetForm();
     } else {
       Alert.alert(
         "Please review your input before submitting",

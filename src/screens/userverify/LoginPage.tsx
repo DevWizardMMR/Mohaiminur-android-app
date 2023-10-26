@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 import {
   Formik,
   FormikHelpers,
@@ -10,13 +10,35 @@ import {
 import { TextInput } from "react-native-gesture-handler";
 import { styles } from "../../theme/styles";
 import PrimaryButton from "../../theme/button/PrimaryButton";
+import AxiosFetch from "../../hook/AxiosFetch";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Loginpage = ({navigation}) => {
-  const submitLogin = (data: object, action: object) => {
-    // console.log(data);
-    fetch("https://provisit-server-hgt4wzsly-developermmr.vercel.app/")
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+
+const Loginpage = ({ navigation }) => {
+  const axiosInstance = AxiosFetch();
+  const submitLogin = async (data: any, action: any) => {
+    await axiosInstance(
+      `finduser?email=${data.email}&pass=${data.password}`
+    ).then((response) => {
+      if (response.data.user !== null) {
+        axiosInstance
+          .post("/createjsontoken", response.data)
+          .then((res) => {
+            if(res.data.token){
+              const stringify = JSON.stringify(res.data.token)
+              AsyncStorage.setItem("userToken",stringify);
+              Alert.alert("Login account successfully","Welcome to user Dashboard");
+              navigation.navigate("Home");
+              action.resetForm();
+            };
+          });
+      } else {
+        Alert.alert(
+          "No user found!",
+          "Sorry, no user found in the database. Feel free to create a new user account."
+        );
+      }
+    });
   };
 
   return (
@@ -60,7 +82,12 @@ const Loginpage = ({navigation}) => {
                     Reset Your Password
                   </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{ width: "50%" }} onPress={()=>{navigation.navigate("signupPage")}}>
+                <TouchableOpacity
+                  style={{ width: "50%" }}
+                  onPress={() => {
+                    navigation.navigate("signupPage");
+                  }}
+                >
                   <Text
                     style={{
                       color: "black",

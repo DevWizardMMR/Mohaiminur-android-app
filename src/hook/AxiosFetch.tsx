@@ -1,12 +1,18 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 const AxiosFetch = () => {
   const axiosInstance = axios.create({
     baseURL: "https://provisit-server.vercel.app/",
+    timeout:5000
   });
 
   axiosInstance.interceptors.request.use((config) => {
-    config.headers.Authorization = "this is header data";
+    const userToken:any = AsyncStorage.getItem("userToken");
+    if(userToken){
+      const parse = JSON.parse(userToken);
+      config.headers.Authorization = `Bearer ${parse}`;
+    }
     return config;
   });
 
