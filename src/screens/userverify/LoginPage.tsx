@@ -11,9 +11,12 @@ import { TextInput } from "react-native-gesture-handler";
 import { styles } from "../../theme/styles";
 import PrimaryButton from "../../theme/button/PrimaryButton";
 
-const Loginpage = () => {
+const Loginpage = ({navigation}) => {
   const submitLogin = (data: object, action: object) => {
-    console.log(data);
+    // console.log(data);
+    fetch("https://provisit-server-hgt4wzsly-developermmr.vercel.app/")
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   };
 
   return (
@@ -45,24 +48,24 @@ const Loginpage = () => {
                   placeholder="password"
                 />
                 <PrimaryButton title="Login" clickEvent={handleSubmit} />
-                <TouchableOpacity style={{marginTop:20, width:"50%"}}>
+                <TouchableOpacity style={{ marginTop: 20, width: "50%" }}>
                   <Text
                     style={{
                       marginVertical: 5,
                       color: "red",
                       fontFamily: "font-raleway",
-                      fontSize:13
+                      fontSize: 13,
                     }}
                   >
                     Reset Your Password
                   </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{width:"50%"}}>
+                <TouchableOpacity style={{ width: "50%" }} onPress={()=>{navigation.navigate("signupPage")}}>
                   <Text
                     style={{
                       color: "black",
                       fontFamily: "font-mooli",
-                      fontSize:18
+                      fontSize: 18,
                     }}
                   >
                     Create new account
