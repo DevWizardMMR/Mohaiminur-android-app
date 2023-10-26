@@ -10,8 +10,7 @@ const AxiosFetch = () => {
   axiosInstance.interceptors.request.use((config) => {
     const userToken:any = AsyncStorage.getItem("userToken");
     if(userToken){
-      const parse = JSON.parse(userToken);
-      config.headers.Authorization = `Bearer ${parse}`;
+      config.headers.Authorization = `Bearer ${userToken}`;
     }
     return config;
   });

@@ -30,7 +30,7 @@ const Welcome = ({ navigation }) => {
           </Text>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("loginpage");
+              navigation.navigate("welcomeOne");
             }}
           >
             <Text style={{ fontFamily: "font-mooli", color: "red" }}>

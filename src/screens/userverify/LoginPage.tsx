@@ -98,6 +98,7 @@ const Loginpage = ({ navigation }) => {
                     Create new account
                   </Text>
                 </TouchableOpacity>
+                <Text onPress={()=>navigation.navigate("Home")} style={{marginTop:30, fontFamily:"font-mooli", color:"green"}}>Skip Login</Text>
               </View>
             )}
           </Formik>
