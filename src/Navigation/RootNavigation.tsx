@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AuthStack from "./AuthStack";
 import UserDashboard from "../screens/dashboard/UserDashboard";
+import UserDashboardMain from "./UserDashboardMain";
 
 const RootNavigator = createNativeStackNavigator();
 
@@ -9,10 +10,10 @@ const RootNavigation = () => {
     <>
       <RootNavigator.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName="start"
+        initialRouteName="welcome"
       >
         <RootNavigator.Screen name="welcome" component={AuthStack} />
-        <RootNavigator.Screen name="Home" component={UserDashboard} />
+        <RootNavigator.Screen name="Home" component={UserDashboardMain} />
       </RootNavigator.Navigator>
     </>
   );
